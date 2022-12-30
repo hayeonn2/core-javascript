@@ -33,11 +33,11 @@ let whichTruthy = false || "" || [2, 3].length || { thisIsFalsy: true };
 let userName = prompt("사용자 이름을 입력해주세요.", "");
 let pw;
 
-if (userName === "Admin") {
+if (userName?.toLowerCase() === "admin") {
   // console.log("확인됐습니다.");
   let pw = prompt("비밀번호를 입력하세요.", "");
 
-  if (pw === "theMaster") {
+  if (pw?.toLowerCase() === "themaster") {
     console.log("환영!");
   } else {
     console.log("취소!");
