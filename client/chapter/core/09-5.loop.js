@@ -120,3 +120,5 @@ Object.keys;
 Object.values;
 
  */
+
+console.log(Object.entries(randomUser));
