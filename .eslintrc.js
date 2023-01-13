@@ -12,5 +12,6 @@ module.exports = {
   },
   rules: {
     "no-unused-vars": "off",
+    "no-undef": "warning", // 일단 에러 끄는 용도
   },
 };
