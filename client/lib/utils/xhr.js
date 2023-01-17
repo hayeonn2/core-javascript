@@ -1,4 +1,4 @@
-/* readyState
+/* -- readyState
 0: uninitalized
 1: loading
 2: loaded
