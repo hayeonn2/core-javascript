@@ -92,3 +92,34 @@ timeout: 1500, */
   .catch((err) => {
     console.log(err);
   }); */
+
+/* -------------------------------------------------------------------------- */
+/*                                 async await                                */
+/* -------------------------------------------------------------------------- */
+
+// async : 일반 함수를 promise를 반환하는 함수로 만든다.
+// await : 1. promise가 반환하는 result를 가져오기
+//         2. 코드 실행 흐름 제어 (앞에있는 일이 끝나야 그 다음일 실행) -  원치않는 에러가 발생하는 것을 막아준다.
+// 많이 남발하면 별로 좋지않다. 딜레이가 많이 생긴다.
+// async를 붙이면 프로미스를 반환한다.
+// Promise{<fulfilled>: "완료"}
+async function delayA() {
+  return "완료";
+}
+
+let result = await delayA();
+
+async function 라면끓이기() {
+  try {
+    await delayP(1500); // 1.5초 후에! 시작된다.
+    console.log("물넣기");
+    console.log("스프넣기");
+    console.log("면넣기");
+    console.log("계란넣기");
+    console.log("그릇에담기");
+  } catch (err) {
+    console.log(err);
+  }
+
+  console.log(result);
+}
