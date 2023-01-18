@@ -8,6 +8,7 @@
 
 // xhrData 함수 만들기 method, url
 //function xhrData(method, url, body) { 1번
+// 콜백 방식
 export function xhrData(
   /*options*/ {
     url = "",
@@ -194,3 +195,82 @@ console.dir(xhrData);
   },
 });
  */
+
+// promise API
+
+const defaultOptions = {
+  url: "",
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  },
+  body: null,
+};
+
+export function xhrPromise(options = {}) {
+  // 생성
+  const xhr = new XMLHttpRequest();
+
+  const { method, url, body, headers } = Object.assign(
+    {},
+    defaultOptions,
+    options
+  );
+
+  if (!url) TypeError("서버와 통신할 url인자는 반드시 필요");
+
+  xhr.open(method, url);
+  // 리턴(함수종료) 때문에 샌드까지 도달을 못해서 위로 올려줌 (리턴 위로)
+  // 바디 있으면 스트링파이, 없으면 null (기본값이 null이긴 함)
+  xhr.send(body ? JSON.stringify(body) : null);
+
+  return new Promise((resolve, reject) => {
+    // 성공과 실패를 제공해준다.
+    // 익스큐터 실행자
+    xhr.addEventListener("readystatechange", () => {
+      //실행자 안에 이벤트걸기 (readyState가 바뀌면 발생되는 이벤트)
+      const { status, readyState, response } = xhr; // 구조분해할당으로 가져오기
+
+      if (status >= 200 && status < 400) {
+        // 상태가 200보다크거나 400보다 작으면 에러가 아니다
+        if (readyState === 4) {
+          // 완료가 된 시점이 필요하니까 값이 4일때 성공을 찍어주세요
+          //console.log("성공");
+          // 객체화
+          // 리졸브에 객체화된 값을 던져~~!야 밑에 then쓸때 출력이 가능하다 파싱이 된 대상이 res에 담김
+          // delay에 data를 담았던 것과 같이 생각하자.
+          resolve(JSON.parse(response));
+        } else {
+          // 그렇지않으면 에러
+          //console.log("실패");
+          reject("err");
+        }
+      }
+    });
+  });
+}
+
+/* xhrPromise({ url: "https://jsonplaceholder.typicode.com/users/1" })
+  .then((res) => {
+    //비동기 통신으로 성공된 값 가져오기 (리졸브로 받은 값을 가져온다 > JSON.parse(response))
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  }); */
+
+// 얘 자체가 내뱉는 값이 프로미스여야 then을 쓸 수 있다.
+xhrPromise.get = (url) => {
+  // 프로미스객체가 튀어나와야 한다.
+  return xhrPromise({ url });
+};
+
+xhrPromise
+  .get("www.naver.com") // promise 그래서 뒤에 then 가능
+  .then((res) => {
+    res;
+  })
+  .catch((err) => {
+    err;
+  });
