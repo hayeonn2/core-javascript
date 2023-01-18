@@ -266,6 +266,21 @@ xhrPromise.get = (url) => {
   return xhrPromise({ url });
 };
 
+xhrPromise.post = (url, body) => {
+  // 프로미스객체가 튀어나와야 한다.
+  return xhrPromise({ url, body, method: "POST" });
+};
+
+xhrPromise.put = (url) => {
+  // 프로미스객체가 튀어나와야 한다.
+  return xhrPromise({ url, body, method: "PUT" });
+};
+
+xhrPromise.delete = (url) => {
+  // 프로미스객체가 튀어나와야 한다.
+  return xhrPromise({ url, method: "DLELTE" });
+};
+
 xhrPromise
   .get("www.naver.com") // promise 그래서 뒤에 then 가능
   .then((res) => {
