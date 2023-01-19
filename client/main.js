@@ -2,10 +2,12 @@
 
 import {
   tiger,
-  getNode,
+  getNode as $, // $로 대체 가능!!
   renderUserCard,
   delayP,
   renderSpinner,
+  renderEmptyCard,
+  attr,
 } from "./lib/index.js";
 import { insertLast } from "./lib/dom/insert.js";
 import { changeColor } from "./lib/utils/theme.js";
@@ -44,7 +46,7 @@ import { changeColor } from "./lib/utils/theme.js";
 // 만들어진 함수 안에 createUserCard를 던지고
 // renderUserCard 함수를 사용했을때 렌더링이 잘 되도록
 
-const userCardContainer = getNode(".user-card-inner");
+const userCardContainer = $(".user-card-inner");
 // await(then의 기능)을 쓰려면 함수 앞에 async를 써야한다.
 async function rendingUserList() {
   renderSpinner(userCardContainer);
@@ -53,11 +55,9 @@ async function rendingUserList() {
     await delayP(2000);
 
     // 로딩스피너를 잡고 제거해준다 2초후
-    getNode(".loadingSpinner").remove();
+    $(".loadingSpinner").remove();
 
-    let response = await tiger.get(
-      "https://jsonplaceholder.typicode.com/users"
-    );
+    let response = await tiger.get("http://localhost:3000/users");
     let userData = response.data;
 
     userData.forEach((data) => {
@@ -78,7 +78,29 @@ async function rendingUserList() {
     });
   } catch (err) {
     // 실패하면 에러처리!
-    console.log(err);
+    //console.log(err);
+    // 에러는 터지는게 놔두는게 아니라 잡아줘야한다.
+    renderEmptyCard(userCardContainer);
   }
 }
 rendingUserList();
+
+// 삭제 버튼에다 걸면 이벤트 10개 씩 다 걸어줘야함
+function handler(e) {
+  let deleteButton = e.target.closest("button");
+  // 버튼 클릭시 아티클만 수집하도록!! 하는 코드
+  let article = e.target.closest("article");
+
+  // 버튼이 아니면 실행안함. 이거나 누른 대상의 인접한 대상이 아티클 아니면 실행 안함
+  if (!deleteButton || !article) return;
+
+  // 아이디 값만 받도록 slice해주기
+  let id = attr(article, "data-index").slice(5);
+
+  // 데이터 지우고나서 then ~ 이용해 내용을 비워주자.
+  tiger.delete(`http://localhost:3000/users/${id}`).then(() => {
+    userCardContainer.innerHTML = "";
+    rendingUserList();
+  });
+}
+userCardContainer.addEventListener("click", handler);
