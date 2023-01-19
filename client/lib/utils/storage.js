@@ -56,8 +56,12 @@ export function loadStorage(key) {
 
 export function deleteStorage(key) {
   return new Promise((resolve, reject) => {
-    !key ? storage.clear : storage.removeItem(key);
-    resolve();
+    if (isString(key)) {
+      !key ? storage.clear : storage.removeItem(key);
+      resolve();
+    } else {
+      reject({ message: "key는 문자타입!" });
+    }
   });
 }
 
