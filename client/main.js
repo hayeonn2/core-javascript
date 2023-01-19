@@ -94,6 +94,8 @@ function handler(e) {
 
   // 버튼이 아니면 실행안함. 이거나 누른 대상의 인접한 대상이 아티클 아니면 실행 안함
   if (!deleteButton || !article) return;
+  // 버튼이 아니면 실행하지 않는다.
+  // 선택된 대상의 근접한 아티클이 없으면!!!! 아예 작동하지 않겠따 이라는 뜻
 
   // 아이디 값만 받도록 slice해주기
   let id = attr(article, "data-index").slice(5);
