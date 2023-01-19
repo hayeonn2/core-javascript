@@ -86,6 +86,7 @@ async function rendingUserList() {
 rendingUserList();
 
 // 삭제 버튼에다 걸면 이벤트 10개 씩 다 걸어줘야함
+// 핸들러에는 async 잘 붙이지 않음. 안에 then을 쓰는게 더 읽기 편하다.
 function handler(e) {
   let deleteButton = e.target.closest("button");
   // 버튼 클릭시 아티클만 수집하도록!! 하는 코드
@@ -97,6 +98,7 @@ function handler(e) {
   // 아이디 값만 받도록 slice해주기
   let id = attr(article, "data-index").slice(5);
 
+  // await tiger.~ 써도됨 then빼고..
   // 데이터 지우고나서 then ~ 이용해 내용을 비워주자.
   tiger.delete(`http://localhost:3000/users/${id}`).then(() => {
     userCardContainer.innerHTML = "";
