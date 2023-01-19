@@ -49,16 +49,16 @@ export function xhrData(
       // 통신 3번 호출 2,3,4 체인지가 일어나 3번실행됨
       if (readyState === 4) {
         // 로딩, 인터렉티브 단계 건너뛰고 마지막 단계(complete)만 확인하기 위해
-        console.log("통신 성공");
+        //console.log("통신 성공");
 
         onSuccess(JSON.parse(response));
         //console.log(typeof xhr.response); // 문자형으로 나온다.
-        console.log(JSON.parse(response)); //찐 데이터!! (parse로 객체화시켜줌!)
+        //console.log(JSON.parse(response)); //찐 데이터!! (parse로 객체화시켜줌!)
       }
     } else {
       // xhr.open 주소를 틀리게 쓰면 통신 실패!
       //console.error("통신 실패");
-      onFail("통신실패");
+      //onFail("통신실패");
     }
   });
   // 서버에 요청 (위에거랑 세트임 - 비동기 통신 오픈이랑)
@@ -82,7 +82,7 @@ xhrData({
     "Content-Type": "application/json",
   }, */
   onSuccess: (result) => {
-    console.log(result);
+    //console.log(result);
   },
   onFail: (err) => {
     console.error(err);
@@ -161,14 +161,14 @@ xhrData.post(
     },
   },
   (result) => {
-    console.log(result);
+    //console.log(result);
   },
   (err) => {
     console.log(err);
   }
 );
 
-console.dir(xhrData);
+//console.dir(xhrData);
 
 // 새롭게 생성한 것 (post = create) 1번
 // create는 새로운 객체를 만들어서 서버로 보낸다고 생각하면 쉽습니다 ㅎㅎ
