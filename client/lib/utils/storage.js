@@ -4,6 +4,8 @@ const {
   JSON: { stringify: serialize, parse: deserialize },
 } = globalThis;
 
+// serialize : 이용해서 벨류를 다시담아. 형변환을해서
+
 const albums = [
   {
     id: "album_0zie",
@@ -56,12 +58,10 @@ export function loadStorage(key) {
 
 export function deleteStorage(key) {
   return new Promise((resolve, reject) => {
-    if (isString(key)) {
-      !key ? storage.clear : storage.removeItem(key);
-      resolve();
-    } else {
-      reject({ message: "key는 문자타입!" });
-    }
+    // deleteStorage(key)에서 키값 없어? 다날려 있으면 지우기만 해줘
+    !key ? storage.clear : storage.removeItem(key);
+    resolve();
+    // 리젝트는 실패할 확률이 없어서 안적어줘도된다.
   });
 }
 
