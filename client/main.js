@@ -1,1 +1,1 @@
-console.log(window);
+import {} from "./lib/utils/storage.js";
