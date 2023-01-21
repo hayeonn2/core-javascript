@@ -97,6 +97,11 @@ function handler(e) {
   // 버튼이 아니면 실행하지 않는다.
   // 선택된 대상의 근접한 아티클이 없으면!!!! 아예 작동하지 않겠따 이라는 뜻
 
+  /*  case1 )  deleteButton 을 누른경우
+  !delteButton = false     /    !article = false  => 이벤트 핸들러 진행
+  case2 ) article 을 누른경우
+  !deleteButton = true   / !article = false  =>  이벤트 핸들러 종료 */
+
   // 아이디 값만 받도록 slice해주기
   let id = attr(article, "data-index").slice(5);
 
