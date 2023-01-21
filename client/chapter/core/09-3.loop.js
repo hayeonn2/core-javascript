@@ -32,6 +32,7 @@ for (let i = 0; i < frontEndDev.length; i++) {
   let result = frontEndDev[i];
 
   // if (result.includes("SVG") || result.includes("jQuery")) continue;
+  // continue 는 만나면 그것 제외하고 진행, break는 대상 만나면 그 전까지만 출력!
   if (result.includes("jQuery")) break; //JavaScript 까지만 출력
   console.log(result);
 }
