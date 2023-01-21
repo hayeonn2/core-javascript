@@ -30,16 +30,20 @@ console.log(frontEndDev[3]);
 console.log(frontEndDev[4]);
 console.log(frontEndDev[5]); */
 
-/* let i = 0;
+// 자바스크립트 내 function들의 성능 체크 방법
+let z1 = performance.now();
+
+let i = 0;
 
 while (i < frontEndDev.length) {
   let value = frontEndDev[i];
 
+  // console.log(i);
+
   console.log(value);
-  //console.log(frontEndDev[i]);
 
   i++;
-} */
+}
 
 /*
 let i = frontEndDev.length - 1;
